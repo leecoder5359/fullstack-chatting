@@ -5,26 +5,31 @@ import {
     USER_SERVICE,
 } from '../service/interface/user-service.interface';
 import { JoinReq } from './payload/request/join.req';
+import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
+@ApiExtraModels(JoinReq)
 @Controller('api/users')
 export class UsersController {
     constructor(
         @Inject(USER_SERVICE) private readonly userService: IUserService,
     ) {}
 
+    @ApiOperation({ summary: '내 정보 조회' })
     @Get()
     getUsers(@Req() req) {
         return req.user;
     }
 
+    @ApiOperation({ summary: '회원가입' })
     @Post()
-    join(@Body() joinReq: JoinReq) {
-    }
+    join(@Body() joinReq: JoinReq) {}
 
+    @ApiOperation({ summary: '로그인' })
     @Post('login')
-    login(@Req() req: Request) {
-    }
+    login(@Req() req: Request) {}
 
+    @ApiOperation({ summary: '로그아웃' })
     @Post('logout')
     logout(@Req() req: Request, @Res() res: Response) {
         res.clearCookie('connect.sid', { httpOnly: true });
