@@ -12,4 +12,5 @@ export class WorkspacesController {
     kickMember() {}
 
     @Get(':workspace/members/:id')
+    getMemberInfo() {}
 }

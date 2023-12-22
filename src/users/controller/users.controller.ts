@@ -23,12 +23,10 @@ export class UsersController {
 
     @Post('login')
     login(@Req() req: Request) {
-        return req.user;
     }
 
     @Post('logout')
     logout(@Req() req: Request, @Res() res: Response) {
-        req.logOut();
         res.clearCookie('connect.sid', { httpOnly: true });
         res.send('ok');
     }
