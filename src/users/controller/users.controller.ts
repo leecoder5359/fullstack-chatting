@@ -6,6 +6,7 @@ import {
 } from '../service/interface/user-service.interface';
 import { JoinReq } from './payload/request/join.req';
 import { ApiExtraModels, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/user.decorator';
 
 @ApiTags('users')
 @ApiExtraModels(JoinReq)
@@ -17,8 +18,8 @@ export class UsersController {
 
     @ApiOperation({ summary: '내 정보 조회' })
     @Get()
-    getUsers(@Req() req) {
-        return req.user;
+    getUsers(@User() user) {
+        return user;
     }
 
     @ApiOperation({ summary: '회원가입' })
@@ -27,7 +28,9 @@ export class UsersController {
 
     @ApiOperation({ summary: '로그인' })
     @Post('login')
-    login(@Req() req: Request) {}
+    login(@Req() @User() user) {
+        return user;
+    }
 
     @ApiOperation({ summary: '로그아웃' })
     @Post('logout')
